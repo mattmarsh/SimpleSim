@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleSimFramework
+namespace SimpleSimFramework.Models
 {
     public class RigidBody2D : ISimModule
     {
+        public MassProperties MassProp { get; set; }
+
         /// <summary>
         /// Position in 2D space, meters
         /// </summary>
@@ -44,26 +46,51 @@ namespace SimpleSimFramework
         private double orientation;
         private double angularVelocity;
         private double angularAcceleration;
+        private double mass; // kg
 
-        public RigidBody2D()
+        /// <summary>
+        /// Forces (in x,y Newtons) and moment arms (in x,y) WRT center of mass acting on rigid body
+        /// </summary>
+        private Dictionary<Guid, Tuple<Vector2D, Vector2D>> forces;
+
+        public RigidBody2D(MassProperties massProp)
         {
-
+            this.MassProp = massProp;
         }
 
-        public RigidBody2D(Vector2D position, Vector2D velocity,  Vector2D acceleration, 
-            double orientation, double angularVelocity, double angularAcceleration)
+        public RigidBody2D(MassProperties massProp, Vector2D position, Vector2D velocity,
+            double orientation, double angularVelocity)
         {
+            this.MassProp = massProp;
             this.position = position;
             this.velocity = velocity;
-            this.acceleration = acceleration;
+            //this.acceleration = acceleration;
             this.orientation = orientation;
-            this.angularAcceleration = angularAcceleration;
+            //this.angularAcceleration = angularAcceleration;
             this.angularVelocity = angularVelocity;
         }
 
         public void Run(TimeSpan dt)
         {
             double seconds = dt.TotalSeconds;
+
+            // Stand at a safe distance, we are about to do physics
+
+            Vector2D totalForce = new Vector2D();
+
+            // Calculate x, y forces
+            foreach (var force in forces.Values)
+            {
+                totalForce.x += force.Item1.x;
+                totalForce.y += force.Item1.y;
+            }
+            acceleration.x = totalForce.x / MassProp.Mass;
+            acceleration.y = totalForce.y / MassProp.Mass;
+
+            // TODO: calculate torque and angular acceleration
+            angularAcceleration = 0;
+
+            // TODO: add gravity
 
             // Update position
             position.x += velocity.x * seconds;
