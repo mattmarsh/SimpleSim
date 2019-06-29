@@ -30,7 +30,36 @@ namespace SimpleSimFramework
         /// <returns></returns>
         public static double To360(double angle)
         {
-            return angle % 360;
+            var res =  angle % 360.0;
+            if (res < 0) res += 360;
+            return res;
+        }
+
+        public static double To2Pi(double angle)
+        {
+            var res =  angle % (2 * Math.PI);
+            if (res < 0) res += (2 * Math.PI);
+            return res;
+        }
+
+        public static double ToPiNegPi(double angle)
+        {
+            double res = To2Pi(angle);
+            if(res >= Math.PI)
+            {
+                res -= Math.PI;
+            }
+            return res;
+        }
+
+        public static double DegToRad(double deg)
+        {
+            return deg / 180 * Math.PI;
+        }
+
+        public static double RadToDeg(double rad)
+        {
+            return rad * 180 / Math.PI;
         }
     }
 }

@@ -13,16 +13,26 @@ namespace SimpleSimFramework.Models
     {
         private Dictionary<string, double> masses = new Dictionary<string, double>();
         private double mass;
+        private double momentOfInertia;
 
+        /// <summary>
+        /// Mass in kg
+        /// </summary>
         public double Mass => mass;
+
+        /// <summary>
+        /// Moment of inertia (kg m^2)
+        /// </summary>
+        public double MomentOfInertia => momentOfInertia;
 
         /// <summary>
         /// Initialize mass prop with mass
         /// </summary>
         /// <param name="mass">mass in kg</param>
-        public MassProperties(double mass)
+        public MassProperties(double mass, double momentOfInertia)
         {
             this.mass = mass;
+            this.momentOfInertia = momentOfInertia;
         }
 
         /// <summary>
@@ -38,11 +48,17 @@ namespace SimpleSimFramework.Models
         public void Run(TimeSpan dt)
         {
             // Sum up the masses
-            mass = 0;
+            double newMass = 0;
             foreach(var m in masses.Values)
             {
-                mass += m;
+                newMass += m;
             }
+
+            // decrease the MoI some
+            // todo: deal with zero mass
+            momentOfInertia *= newMass / mass;
+
+            mass = newMass;
         }
     }
 }

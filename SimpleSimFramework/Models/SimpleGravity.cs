@@ -10,7 +10,11 @@ namespace SimpleSimFramework.Models
     {
         public Vector2D Acceleration { get; set; } = Vector2D.Zero;
 
-        SimpleGravity(Vector2D acceleration)
+        public SimpleGravity()
+        {
+        }
+
+        public SimpleGravity(Vector2D acceleration)
         {
             Acceleration = acceleration;
         }
