@@ -83,7 +83,7 @@ namespace SimpleSimFramework.Models
 
             if(thrustOn && fuelAvailable)
             {
-                Vector2D thrust = new Vector2D(maxThrust * adjustedThrustPercent, 0);
+                Vector2D thrust = new Vector2D(-maxThrust * adjustedThrustPercent, 0);
                 thrust = thrust.Rotate(orientation); // rotate to body coordinates
                 thrust = thrust.Rotate(-rigidBody.Orientation); //rotate to x,y coordinates
                 Vector2D momentArm = mountPointBody.Rotate(-rigidBody.Orientation); // rotate mount point to x,y coords

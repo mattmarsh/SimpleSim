@@ -10,11 +10,20 @@ namespace SimpleSimFramework.Models
     {
         private MassProperties massProp;
         private double mass; // kg
+        private Guid tankId = Guid.NewGuid();
 
         /// <summary>
         /// Fuel mass in kg
         /// </summary>
-        public double Mass { get; set; }
+        public double Mass
+        {
+            get { return mass; }
+            set
+            {
+                mass = value;
+                massProp.SetMass(tankId, mass);
+            }
+        }
 
         public FuelTank(MassProperties massProp)
         {
@@ -29,7 +38,7 @@ namespace SimpleSimFramework.Models
         public FuelTank(MassProperties massProp, double mass)
         {
             this.massProp = massProp;
-            this.mass = mass;
+            this.Mass = mass;
         }
     }
 }

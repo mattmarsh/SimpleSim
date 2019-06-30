@@ -9,9 +9,9 @@ namespace SimpleSimFramework.Models
     /// <summary>
     /// Simple mass properties, assumes that mass is always centered at the center of mass
     /// </summary>
-    public class MassProperties : ISimModule
+    public class MassProperties
     {
-        private Dictionary<string, double> masses = new Dictionary<string, double>();
+        private Dictionary<Guid, double> masses = new Dictionary<Guid, double>();
         private double mass;
         private double momentOfInertia;
 
@@ -40,12 +40,19 @@ namespace SimpleSimFramework.Models
         /// </summary>
         /// <param name="name">a label assigned to this mass</param>
         /// <param name="amount">mass in kg</param>
-        public void SetMass(string name, double amount)
+        public void SetMass(Guid id, double amount)
         {
-            masses[name] = amount;
+            masses[id] = amount;
+            Recalculate();
         }
 
-        public void Run(TimeSpan dt)
+        public void RemoveMass(Guid id)
+        {
+            masses.Remove(id);
+            Recalculate();
+        }
+
+        private void Recalculate()
         {
             // Sum up the masses
             double newMass = 0;
@@ -54,9 +61,9 @@ namespace SimpleSimFramework.Models
                 newMass += m;
             }
 
-            // decrease the MoI some
+            // adjust the MoI some
             // todo: deal with zero mass
-            momentOfInertia *= newMass / mass;
+            if(mass != 0) momentOfInertia *= newMass / mass;
 
             mass = newMass;
         }

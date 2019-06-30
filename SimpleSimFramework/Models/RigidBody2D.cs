@@ -58,7 +58,6 @@ namespace SimpleSimFramework.Models
         private double orientation;
         private double angularVelocity;
         private double angularAcceleration;
-        private double mass; // kg
 
         /// <summary>
         /// Forces (in x,y Newtons) and moment arms (in x,y) WRT center of mass acting on rigid body

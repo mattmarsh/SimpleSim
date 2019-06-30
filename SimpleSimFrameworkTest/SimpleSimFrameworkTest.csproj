@@ -55,6 +55,7 @@
     <Compile Include="RigidBody2DTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerTests.cs" />
+    <Compile Include="ThrusterTests.cs" />
     <Compile Include="UtilTests.cs" />
   </ItemGroup>
   <ItemGroup>
