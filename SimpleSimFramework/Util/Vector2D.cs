@@ -19,6 +19,17 @@ namespace SimpleSimFramework
         public double AngleDeg { get { return Util.RadToDeg(AngleRad) ; } }
         public double AngleRad { get { return Math.Atan2(y, x); } }
 
+        /// <summary>
+        /// Rotate vector in radians, returns rotated vector
+        /// </summary>
+        public Vector2D Rotate(double radians)
+        {
+            Vector2D res = new Vector2D();
+            res.x = x * Math.Cos(radians) - y * Math.Sin(radians);
+            res.y = x * Math.Sin(radians) + y * Math.Cos(radians);
+            return res;
+        }
+
         public Vector2D(double x, double y)
         {
             this.x = x;

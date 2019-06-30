@@ -41,9 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IGravity2D.cs" />
+    <Compile Include="Models\FuelTank.cs" />
     <Compile Include="Models\MassProperties.cs" />
     <Compile Include="Models\SimpleGravity.cs" />
     <Compile Include="Interfaces\ISimModule.cs" />
+    <Compile Include="Models\Thruster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\RigidBody2D.cs" />
     <Compile Include="Util\EqualScheduler.cs" />

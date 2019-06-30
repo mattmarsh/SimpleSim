@@ -47,6 +47,11 @@ namespace SimpleSimFramework.Models
             forces[id] = new Tuple<Vector2D, Vector2D>(force, momentArm);
         }
 
+        public void RemoveForce(Guid id)
+        {
+            forces.Remove(id);
+        }
+
         private Vector2D position;
         private Vector2D velocity;
         private Vector2D acceleration;
