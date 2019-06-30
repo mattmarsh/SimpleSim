@@ -23,7 +23,7 @@ namespace SimpleSimFramework.Models
         /// <summary>
         /// Moment of inertia (kg m^2)
         /// </summary>
-        public double MomentOfInertia => momentOfInertia;
+        public double MomentOfInertia { get { return momentOfInertia; } set { momentOfInertia = value; } }
 
         /// <summary>
         /// Initialize mass prop with mass
