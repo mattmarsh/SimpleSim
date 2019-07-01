@@ -24,6 +24,14 @@ namespace SimpleSimFramework.Models
         private Guid thrustId = Guid.NewGuid();
 
         /// <summary>
+        /// Current thrust in Newtons
+        /// </summary>
+        public double Thrust
+        {
+            get; private set;
+        }
+
+        /// <summary>
         /// Initialize thruster model
         /// </summary>
         /// <param name="massProp"></param>
@@ -90,9 +98,11 @@ namespace SimpleSimFramework.Models
 
                 rigidBody.SetForce(thrustId, thrust, momentArm);
                 fuelTank.Mass = Math.Max(0, fuelTank.Mass - fuelUsage);
+                Thrust = thrust.Magnitude;
             }
             else
             {
+                Thrust = 0;
                 rigidBody.RemoveForce(thrustId);
             }
         }

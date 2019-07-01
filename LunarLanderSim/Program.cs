@@ -35,16 +35,22 @@ namespace LunarLanderSim
             double fuelUsage = 13; // kg/s, guess
             Thruster mainEngine = new Thruster(massProp, lander, mainTank, engineMountPoint, orientation, maxThrust, fuelUsage, true);
 
+            // logging
+            Logger log = new Logger();
+            log.MainEngine = mainEngine;
+            log.RigidBody = lander;
+
             // Initialize scheduler
             EqualScheduler scheduler = new EqualScheduler(40); //hz
             scheduler.Add(mainEngine, 0);
             scheduler.Add(lander, 1);
+            scheduler.Add(log, 2);
 
             // run sim
             mainEngine.SetThrottle(0.6);
             mainEngine.SetThrust(true);
             scheduler.Run(TimeSpan.FromSeconds(60));
-            
+            log.WriteCSV("simdata.csv");
         }
     }
 }
