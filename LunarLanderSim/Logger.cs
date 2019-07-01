@@ -44,23 +44,29 @@ namespace LunarLanderSim
 
         public void WriteCSV(string filename)
         {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(filename))
-            {
-                var labels = data.Keys;
-                file.WriteLine(string.Join(",", labels));
-
-                StringBuilder line = new StringBuilder();
-                for (int i = 0; i < data["t"].Count; i++)
+            try {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(filename))
                 {
-                    foreach (var label in labels)
+                    var labels = data.Keys;
+                    file.WriteLine(string.Join(",", labels));
+
+                    StringBuilder line = new StringBuilder();
+                    for (int i = 0; i < data["t"].Count; i++)
                     {
-                        line.Append(data[label][i]);
-                        line.Append(",");
+                        foreach (var label in labels)
+                        {
+                            line.Append(data[label][i]);
+                            line.Append(",");
+                        }
+                        line.Remove(line.Length - 1, 1);
+                        file.WriteLine(line.ToString());
+                        line.Clear();
                     }
-                    line.Remove(line.Length - 1, 1);
-                    file.WriteLine(line.ToString());
-                    line.Clear();
                 }
+            }
+            catch (IOException)
+            {
+                //todo something went wrong
             }
         }
     }

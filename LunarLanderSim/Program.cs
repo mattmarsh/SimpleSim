@@ -50,7 +50,7 @@ namespace LunarLanderSim
             mainEngine.SetThrottle(0.6);
             mainEngine.SetThrust(true);
             scheduler.Run(TimeSpan.FromSeconds(60));
-            log.WriteCSV("simdata.csv");
+            log.WriteCSV("simdata_" + DateTime.Now.ToString("yyyyMMddTHHmmss") + ".csv");
         }
     }
 }
