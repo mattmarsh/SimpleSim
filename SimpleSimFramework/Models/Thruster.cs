@@ -32,6 +32,11 @@ namespace SimpleSimFramework.Models
         }
 
         /// <summary>
+        /// Get fuel mass left accessible to this thruster
+        /// </summary>
+        public double FuelLeft => fuelTank.Mass;
+
+        /// <summary>
         /// Initialize thruster model
         /// </summary>
         /// <param name="massProp"></param>
@@ -69,6 +74,11 @@ namespace SimpleSimFramework.Models
         public void SetThrust(bool on)
         {
             thrustOn = on;
+
+            if(!throttleable)
+            {
+                thrustPercent = 1;
+            }
         }
 
         public void Run(TimeSpan dt)

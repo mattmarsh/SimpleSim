@@ -28,7 +28,7 @@ namespace SimpleSimFramework.Models
         public Vector2D Acceleration { get { return acceleration; } }
 
         /// <summary>
-        /// Orientation in rad
+        /// Orientation in rad, +/- pi radians
         /// </summary>
         public double Orientation { get { return orientation; } }
 
